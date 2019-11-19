@@ -21,7 +21,7 @@ allprojects {
 
 ```
 dependencies {
-  implementation 'com.github.juhchamp:SimpleBiometricHandler:v1.0.0'
+  implementation 'com.github.juhchamp:SimpleBiometricHandler:1.0.0'
 }
 ```
 
