@@ -6,7 +6,8 @@ A simple library to handle biometric authentication in Android.
 ## Download
 Download the latest version via Gradle:
 
-**Step 1.** Add the JitPack repository to your build file. Add it in your root build.gradle at the end of repositories:
+**Step 1.**
+Add the JitPack repository to your build file. Add it in your root build.gradle at the end of repositories:
 
 ```
 allprojects {
@@ -17,27 +18,30 @@ allprojects {
 }
 ```
 
-**Step 2.** Add the SimpleBiometricHandler dependency
+**Step 2.**
+Add the SimpleBiometricHandler dependency
 
 ```
 dependencies {
-  implementation 'com.github.juhchamp:SimpleBiometricHandler:v1.0.0'
+  implementation 'com.github.juhchamp:SimpleBiometricHandler:1.0.0'
 }
 ```
 
 ## Usage
 
-**Step 1.** Add permission to your manifest file
+**Step 1.**
+Add permission to your manifest file
 
-```
+```java
  <uses-permission android:name="android.permission.USE_BIOMETRIC"
         android:requiredFeature="false"
         tools:targetApi="o" />
 ```
-        
-**Step 2.** Set up a BiometricCallback to handle callbacks
 
-```
+**Step 2.**
+Set up a BiometricCallback to handle callbacks
+
+```kotlin
   private val biometricCallback = object : BiometricCallback {
 
         override fun onBiometricNotEnrolled() {
@@ -78,13 +82,60 @@ dependencies {
     }
 ```
 
-**Step 3.** Call the BiometricHandler instance passing activity, callback object and set the other needed options
+**Step 3.**
+Call the BiometricHandler instance passing activity and set the other needed options or see ***Step 4*** to another way to use the Handler.
+> You can see this in action on ***ExampleWithNoPreCheckActivity*** in the app project.
 
+```kotlin
+BiometricHandler(this)
+    .setTitle("Payment action")
+    .setSubtitle("youremail@test.com")
+    .setDescription("Hello there, this is a test description for this test payment action.")
+    .setNegativeButtonText("Cancel")
+    .setHandlerCallback(biometricHandlerCallback)
+    .show()
 ```
-BiometricHandler(this, biometricCallback)
-  .setTitle("Confirm Payment")
-  .setSubtitle("corextechnologies@gmail.com")
-  .setDescription("Paying for Kamba Gas Service")
-  .setNegativeButtonText("Cancel")
-  .show()
+
+**Step 4.** ***( another way to use )***
+Instantiating the handler and checking if can authenticate first.
+> You can see this in action on ***ExampleWithPreCheckActivity*** in the app project.
+
+```kotlin
+// Create var for the handler calling the instance
+private var biometricHandler: BiometricHandler = BiometricHandler(this)
+// Create var for callback
+private val biometricHandlerCallback { ... }
+
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_example_with_pre_check)
+
+    // Check if can authenticate first
+    // If code is BIOMETRIC_SUCCESS setup the prompt to show when user tap the button
+    // Otherwise, apply error message based on the code
+    when(biometricHandler.canAuthenticate()) {
+        BIOMETRIC_SUCCESS -> setupBiometricPrompt()
+        BIOMETRIC_ERROR_NO_HARDWARE -> {
+          // do anything when no hardware
+        }
+        BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
+          // do anything when biometry unavailable
+        }
+        BIOMETRIC_ERROR_NONE_ENROLLED -> {
+          // do anything when biometry not enrolled
+        }
+    }
+}
+
+private fun setupBiometricPrompt() {
+    authenticateButton.setOnClickListener {
+        biometricHandler
+            .setTitle("Payment action")
+            .setSubtitle("youremail@test.com")
+            .setDescription("Hello there, this is a test description for this test payment action.")
+            .setNegativeButtonText("Cancel")
+            .setHandlerCallback(biometricHandlerCallback)
+            .show()
+    }
+}
 ```

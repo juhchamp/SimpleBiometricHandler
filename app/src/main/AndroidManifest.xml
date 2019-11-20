@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="juhchamp.com.br.simplebiometricsample">
 
-    <uses-permission android:name="android.permission.USE_BIOMETRIC"
+    <uses-permission
+        android:name="android.permission.USE_BIOMETRIC"
         android:requiredFeature="false"
         tools:targetApi="o" />
 
@@ -14,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="juhchamp.com.br.simplebiometricsample.MainActivity">
+        <activity android:name=".ExampleWithPreCheckActivity"></activity>
+        <activity android:name=".ExampleWithNoPreCheckActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Simple Biometric</string>
+    <string name="app_name">Simple Biometric Handler</string>
+    <string name="biometry_not_enrolled">Biometry are not enrolled on this device.</string>
+    <string name="biometry_unavailable">Biometry unavailable on this device.</string>
+    <string name="biometry_not_supported">This device have no biometry hardware support.</string>
+    <string name="biometry_auth_error">Authentication error: %s</string>
+    <string name="biometry_auth_failed">Authentication failed.</string>
+    <string name="biometry_auth_successed">Authentication successed!</string>
 </resources>

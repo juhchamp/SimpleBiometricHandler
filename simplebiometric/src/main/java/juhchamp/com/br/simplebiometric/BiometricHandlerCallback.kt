@@ -4,7 +4,7 @@ package juhchamp.com.br.simplebiometric
  * Callback structure provided to [BiometricHandler].
  * Users of BiometricHandler must provide an implementation of this for listening to biometric events
  */
-interface BiometricCallback {
+interface BiometricHandlerCallback {
     fun onNoBiometricHardware()
     fun onBiometricNotEnrolled()
     fun onBiometricUnavailable()
