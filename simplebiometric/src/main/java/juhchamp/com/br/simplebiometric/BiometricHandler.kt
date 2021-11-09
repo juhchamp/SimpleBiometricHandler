@@ -18,8 +18,12 @@ class BiometricHandler(private var activity: FragmentActivity) {
     private var description: String? = null
     private var negativeButtonText: String? = null
 
-    private val executor: Executor = Executors.newSingleThreadExecutor()
-    private var biometricManager: BiometricManager = BiometricManager.from(activity)
+    private val executor: Executor by lazy {
+        Executors.newSingleThreadExecutor()
+    }
+    private val biometricManager: BiometricManager by lazy {
+        BiometricManager.from(activity)
+    }
     private var biometricHandlerCallback: BiometricHandlerCallback? = null
 
     /**
