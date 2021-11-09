@@ -15,9 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ExampleWithPreCheckActivity"></activity>
+        <activity android:name=".ExampleWithPreCheckActivity"/>
         <activity android:name=".ExampleWithNoPreCheckActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
